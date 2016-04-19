@@ -60,12 +60,14 @@ def getDroppedFrameNumbers(numberSequence):
 	lastFrame = max(numberSequence)
 
 	firstConsecutive = firstFrame
-	consecutiveCount = 0;
-	
+	consecutiveCount = 0
+
 	output = ""
+	count = 0
 
 	for i in range(firstFrame, lastFrame + 1):
 		if i not in numberSequence:
+			count += 1
 			if (consecutiveCount == 0): #If we haven't started a streak yet, set the start point to the current iteration
 				firstConsecutive = i
 				#Also append the beginning portion to our output string
@@ -73,17 +75,20 @@ def getDroppedFrameNumbers(numberSequence):
 			consecutiveCount += 1 #Add 1 to our streak
 		else:
 			if (consecutiveCount > 0):
+				if (consecutiveCount > 1): #No ranges on 1 frame streaks
+					#Append end of range to output
+					output += "-" + str(i-1)
 				#End consecutive streak
 				consecutiveCount = 0
 				#Reset starting point to current iteration
 				firstConsecutive = i
-				#Append end of range to output
-				output += "-" + str(i-1)
+					
 
-	print output[2:]
+	print "Total frames dropped: %s" % count
+	return output[2:]
 
 
 path = getPathFromUser()
-getDroppedFrameNumbers(getFileSequenceAsNumbers(getSequence(path)))
+print getDroppedFrameNumbers(getFileSequenceAsNumbers(getSequence(path)))
 
 
