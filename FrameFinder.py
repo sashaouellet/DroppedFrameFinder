@@ -12,15 +12,14 @@ def getPathFromUser():
 	return path
 
 def isPathFormat(path):
-	regex = '(\w+\\\\{1})+(\w+\.{1})+\w+'
-	regex2 = '\/(\w+\/{1})+(\w+\.{1})+\w+'
-	if re.match(regex2, path):
+	regex = '(\\\\{1}\w+)+(\w+\.{1})+\w+'
+	if re.match(regex, path):
 		return True
 	else:
 		return False
 
 def getSequence(entirePath):
-	directoryFileList = re.split('(\/(\w+\/{1})+)', entirePath)
+	directoryFileList = re.split('(\\\\(\w+\\\\{1})+)', entirePath)
 	baseDirectory = directoryFileList[1]
 	fileName = directoryFileList[3]
 	fileNameParts = fileName.split(".")
@@ -90,5 +89,3 @@ def getDroppedFrameNumbers(numberSequence):
 
 path = getPathFromUser()
 print getDroppedFrameNumbers(getFileSequenceAsNumbers(getSequence(path)))
-
-
