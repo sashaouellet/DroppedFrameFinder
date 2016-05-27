@@ -12,14 +12,14 @@ def getPathFromUser():
 	return path
 
 def isPathFormat(path):
-	regex = '([_a-zA-Z0-9\:]+\\\\)+(\w+\.{1})+\w+'
+	regex = '([_a-zA-Z0-9\:\s]+\\\\)+(\w+\.{1})+\w+'
 	if re.match(regex, path):
 		return True
 	else:
 		return False
 
 def getSequence(entirePath):
-	directoryFileList = re.split('(([_a-zA-Z0-9\:]+\\\\{1})+)', entirePath)
+	directoryFileList = re.split('(([_a-zA-Z0-9\:\s]+\\\\{1})+)', entirePath)
 	baseDirectory = directoryFileList[1]
 	fileName = directoryFileList[3]
 	fileNameParts = fileName.split(".")
